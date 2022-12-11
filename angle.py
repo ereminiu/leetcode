@@ -1,9 +1,13 @@
-n = int(input())
+s = input()
 
-a = [int(input()) for x in range(n)]
+pz_ver = [[1, 1], [3, 1]]
+pz_hor = [[1, 3], [2, 3], [3, 3], [4, 3]]
 
-vel = n * [0]
-vel[0] = a[0]
-for i in range(1, n):
-    vel[i] = min(vel[i-1], a[i])
-print(*vel)
+ver, hor = 0, 0
+for c in s:
+    if c == '0':
+        print(*pz_ver[ver])
+    else:
+        print(*pz_hor[hor])
+    ver += (c == '0'); ver %= 2
+    hor += (c == '1'); hor %= 4
