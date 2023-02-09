@@ -1,0 +1,35 @@
+class Solution:
+    def minCut(self, s: str) -> int:
+        n = len(s)
+        is_pal = [[False for x in range(n)] for y in range(n)]
+        for i in range(n-1, -1, -1):
+            for j in range(i, n):
+                if i == j:
+                    is_pal[i][j] = True
+                    continue
+
+                if i == j-1:
+                    is_pal[i][j] = (s[i] == s[j])
+                    continue
+
+                is_pal[i][j] = is_pal[i+1][j-1] if s[i] == s[j] else False
+
+        dp = [0 for x in range(n)]
+        dp[0] = 1
+        for right in range(1, n):
+            if is_pal[0][right]:
+                dp[right] = 1
+                continue
+
+            dp[right] = dp[right-1] + 1
+            for left in range(1, right+1):
+                if is_pal[left][right]:
+                    dp[right] = min(dp[right], dp[left-1] + 1)
+
+        return dp[n-1] - 1
+
+print(Solution().minCut(s = "aab"))
+print(Solution().minCut(s = "a"))
+print(Solution().minCut(s = "ab"))
+print(Solution().minCut(s = 'abacaa'))
+print(Solution().minCut(s = 'abacaba'))
