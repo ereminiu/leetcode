@@ -1,0 +1,39 @@
+class Solution:
+    def decodeString(self, parse_me: str) -> str:
+        def go(l, r):
+            x = 0
+            l, r = 0, 0
+            bal = 0
+            s = ''
+            ret = ''
+            for i in range(l, r+1):
+                c = parse_me[i]
+
+                if c.isdigit() and bal == 0:
+                    x *= 10
+                    x += ord(c) - ord('0')
+                    ret += s
+                    if s != '':
+                        s = ''
+                    continue
+
+                if c == '[' and bal == 0:
+                    l = i
+                
+                if c == ']' and bal == 1:
+                    r = i
+                    ret += x * go(l, r)
+                    x = 0
+                    l = 0
+                    r = 0
+
+                if c not in '[]' and bal == 0:
+                    s += c
+            
+            return ret + s
+        
+        return go(0, len(parse_me)-1)
+
+print(Solution().decodeString(parse_me = "3[a]2[bc]"))
+print(Solution().decodeString(parse_me = "3[a2[c]]"))
+print(Solution().decodeString(parse_me = "2[abc]3[cd]ef"))
