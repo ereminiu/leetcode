@@ -1,3 +1,3 @@
-Just yet another repository of my leetcode tasks solutions
+Just yet another repository of my leetcode solutions
 
 Enjoy
