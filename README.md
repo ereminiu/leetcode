@@ -1,1 +1,3 @@
-Just another leetcode task repo
+Just yet another repository of my leetcode tasks solutions
+
+Enjoy
